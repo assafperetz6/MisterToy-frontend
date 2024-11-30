@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 import { HomePage } from './pages/HomePage.jsx'
+import { ToyIndex } from './pages/ToyIndex.jsx'
 
 
 
@@ -17,6 +18,7 @@ function App() {
                     <main className='main-layout'>
                         <Routes>
                             <Route element={<HomePage />} path="/" />
+                            <Route element={<ToyIndex />} path="/toy" />
                         </Routes>
                     </main>
                     <AppFooter />

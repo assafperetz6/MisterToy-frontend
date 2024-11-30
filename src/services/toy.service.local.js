@@ -11,8 +11,8 @@ export const toyService = {
     getById,
     save,
     remove,
-    getEmptyToy,
     getRandomToy,
+    getEmptyToy,
     getDefaultFilter
 }
 
@@ -58,20 +58,22 @@ function getEmptyToy() {
         }
 }
 
-// function getRandomToy() {
-//     const labels = [
-//         'On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
-//         'Outdoor', 'Battery Powered'
-//     ]
+function getRandomToy() {
+    const labelOptions = [
+        'On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+        'Outdoor', 'Battery Powered'
+    ]
+    
+    const toy = {
+        name: `toy-${utilService.makeId(3)}`,
+        price: 123,
+        labels: [labelOptions[utilService.getRandomIntInclusive(0, 7)], labelOptions[utilService.getRandomIntInclusive(0, 7)]],
+        createdAt: Date.now(),
+        inStock: true,
+    }
 
-//     return {
-//         name: 'Talking Doll',
-//         price: 123,
-//         labels: ['Doll', 'Battery Powered', 'Baby'],
-//         createdAt: Date.now(),
-//         inStock: true,
-//         }
-// }
+    return toy
+}
 
 function getDefaultFilter() {
     return { txt: '', maxPrice: '' }

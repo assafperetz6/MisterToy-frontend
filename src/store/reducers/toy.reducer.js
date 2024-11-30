@@ -27,7 +27,7 @@ const initialState = {
 
 export function toyReducer(state = initialState, action = {}) {
     switch (action.type) {
-        //* Cars
+        //* Toys
         case SET_TOYS:
             return { ...state, toys: action.toys }
         case REMOVE_TOY:
