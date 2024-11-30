@@ -1,5 +1,11 @@
 import { Provider } from 'react-redux'
+import { store } from './store/store.js'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { AppHeader } from './cmps/AppHeader.jsx'
+import { AppFooter } from './cmps/AppFooter.jsx'
+import { HomePage } from './pages/HomePage.jsx'
+
+
 
 function App() {
 
@@ -11,12 +17,6 @@ function App() {
                     <main className='main-layout'>
                         <Routes>
                             <Route element={<HomePage />} path="/" />
-                            <Route element={<AboutUs />} path="/about" />
-                            <Route element={<ToyIndex />} path="/car" />
-                            <Route element={<ToyEdit />} path="/car/edit" />
-                            <Route element={<ToyEdit />} path="/car/edit/:carId" />
-                            <Route element={<ToyDetails />} path="/car/:carId" />
-                            <Route element={<UserDetails />} path="/user/:userId" />
                         </Routes>
                     </main>
                     <AppFooter />
