@@ -70,7 +70,6 @@ export function ToyIndex() {
 
     return (
         <div>
-            <h3>Toys App</h3>
             <main>
                 <Link to="/toy/edit">Add Toy</Link>
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
