@@ -14,6 +14,12 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     function handleChange({ target }) {
         let { value, name: field, type } = target
         value = type === 'number' ? +value : value
+
+        if (field === 'isStock') {
+            value = value === 'Both' ? null : JSON.parse(value)
+        }
+        
+        
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
 
@@ -39,14 +45,12 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                     onChange={handleChange}
                 />
 
-                {/* <label htmlFor="minSpeed">Min Speed:</label>
-                <input type="number"
-                    id="minSpeed"
-                    name="minSpeed"
-                    placeholder="By min speed"
-                    value={filterByToEdit.minSpeed || ''}
-                    onChange={handleChange}
-                /> */}
+
+                <select name="isStock" id="isStock" onChange={handleChange}>
+                    <option value={true}>In stock</option>
+                    <option value={false}>Not in stock</option>
+                    <option>Both</option>
+                </select>
             </form>
         </section>
     )
