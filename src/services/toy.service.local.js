@@ -17,6 +17,7 @@ export const toyService = {
 }
 
 function query(filterBy = {}) {
+    console.log(filterBy)
     return storageService.query(STORAGE_KEY)
         .then(toys => {
             if (!filterBy.txt) filterBy.txt = ''
@@ -24,7 +25,7 @@ function query(filterBy = {}) {
             const regExp = new RegExp(filterBy.txt, 'i')
             return toys.filter(toy =>
             {
-                return regExp.test(toy.vendor) &&
+                return regExp.test(toy.name) &&
                 toy.price <= filterBy.maxPrice
 
             }

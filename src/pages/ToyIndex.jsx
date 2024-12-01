@@ -1,14 +1,15 @@
-import { toyService } from '../services/toy.service.local.js'
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-
-import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
-import { loadToys, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
-
-// import { ToyFilter } from '../cmps/ToyFilter.jsx'
-import { ToyList } from '../cmps/ToyList.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
+import { toyService } from '../services/toy.service.local.js'
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+import { loadToys, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
+import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
+import { ToyFilter } from '../cmps/ToyFilter.jsx'
+import { ToyList } from '../cmps/ToyList.jsx'
+
+
 
 export function ToyIndex() {
 
@@ -24,7 +25,7 @@ export function ToyIndex() {
             })
     }, [filterBy])
     
-    function onSetFilter(filterBy) {
+    function onSetFilter(filterBy) {        
         setFilterBy(filterBy)
     }
 
@@ -64,16 +65,16 @@ export function ToyIndex() {
 
     function addToToyt(toy) {
         console.log(`Adding ${toy.vendor} to Toyt`)
-        dispatch({ type: ADD_CAR_TO_CART, toy })
+        dispatch({ type: ADD_TOY_TO_CART, toy })
         showSuccessMsg('Added to Toyt')
     }
 
     return (
         <div>
             <main>
-                <Link to="/toy/edit">Add Toy</Link>
+                {/* <Link to="/toy/edit">Add Toy</Link> */}
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
-                {/* <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} /> */}
+                <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 {!isLoading 
                     ? <ToyList
                         toys={toys}

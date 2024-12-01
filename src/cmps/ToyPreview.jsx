@@ -9,7 +9,7 @@ export function ToyPreview({ toy }) {
             <p>Price: <span>${toy.price.toLocaleString()}</span></p>
             {/* {toy.owner && <p>Owner: <Link to={`/user/${toy.owner._id}`}>{toy.owner.fullname}</Link></p>} */}
             <hr />
-            <button><Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp; | &nbsp;</button>
+            <button><Link to={`/toy/edit/${toy._id}`}>Edit</Link></button>
             <button><Link to={`/toy/${toy._id}`}>Details</Link></button>
 
         </article>

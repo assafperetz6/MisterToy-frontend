@@ -1,6 +1,6 @@
-import { toyService } from "../../services/toy.service.js"
+import { toyService } from "../../services/toy.service.local.js"
 
-//* Cars
+//* Toys
 export const SET_TOYS = 'SET_TOYS'
 export const REMOVE_TOY = 'REMOVE_TOY'
 export const ADD_TOY = 'ADD_TOY'
@@ -22,7 +22,7 @@ const initialState = {
     shoppingCart: [],
     isLoading: false,
     filterBy: toyService.getDefaultFilter(),
-    lastCars: []
+    lastToys: []
 }
 
 export function toyReducer(state = initialState, action = {}) {
@@ -31,11 +31,11 @@ export function toyReducer(state = initialState, action = {}) {
         case SET_TOYS:
             return { ...state, toys: action.toys }
         case REMOVE_TOY:
-            const lastCars = [...state.toys]
+            const lastToys = [...state.toys]
             return {
                 ...state,
                 toys: state.toys.filter(toy => toy._id !== action.toyId),
-                lastCars
+                lastToys
             }
         case ADD_TOY:
             return {
@@ -79,7 +79,7 @@ export function toyReducer(state = initialState, action = {}) {
         case TOY_UNDO:
             return {
                 ...state,
-                toys: [...state.lastCars]
+                toys: [...state.lastToys]
             }
 
         default:
