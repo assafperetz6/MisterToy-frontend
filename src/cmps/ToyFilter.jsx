@@ -76,12 +76,3 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         </section>
     )
 }
-
-
-            {/* <input type="checkbox" onChange={handleChange} value='Box game'>Box game</input>
-            <input type="checkbox" onChange={handleChange} value='Battery Powered'>Battery Powered</input>
-            <input type="checkbox" onChange={handleChange} value='Art'>Art</input>
-            <input type="checkbox" onChange={handleChange} value='Baby'>Baby</input>
-            <input type="checkbox" onChange={handleChange} value='Doll'>Doll</input>
-            <input type="checkbox" onChange={handleChange} value='Puzzle'>Puzzle</input>
-            <input type="checkbox" onChange={handleChange} value='Outdoor'>Outdoor</input> */}
