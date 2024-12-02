@@ -3,6 +3,16 @@ import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'toyDB'
+const labelOptions = [
+	'On wheels',
+	'Box game',
+	'Art',
+	'Baby',
+	'Doll',
+	'Puzzle',
+	'Outdoor',
+	'Battery Powered',
+]
 
 _createToys()
 
@@ -21,16 +31,20 @@ function query(filterBy = {}) {
 	return storageService.query(STORAGE_KEY).then((toys) => {
 		if (!filterBy.txt) filterBy.txt = ''
 		if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
-
+        
 		if (filterBy.isStock) {
-			toys = toys.filter((toy) => toy.inStock === true)
-		} else if (filterBy.isStock === false) {
-			toys = toys.filter((toy) => toy.inStock === false)
+            toys = toys.filter((toy) => toy.inStock === JSON.parse(filterBy.isStock))
 		}
-
+        
+        if (filterBy.labels && filterBy.labels.length > 0) {
+            toys = toys.filter(toy => toy.labels.some((label) => filterBy.labels.includes(label)))
+        }
 		const regExp = new RegExp(filterBy.txt, 'i')
 		return toys.filter((toy) => {
-			return regExp.test(toy.name) && toy.price <= filterBy.maxPrice
+			return (
+				regExp.test(toy.name) &&
+				toy.price <= filterBy.maxPrice
+			)
 		})
 	})
 }
@@ -62,17 +76,6 @@ function getEmptyToy() {
 }
 
 function getRandomToy() {
-	const labelOptions = [
-		'On wheels',
-		'Box game',
-		'Art',
-		'Baby',
-		'Doll',
-		'Puzzle',
-		'Outdoor',
-		'Battery Powered',
-	]
-
 	const toy = {
 		name: `toy-${utilService.makeId(3)}`,
 		price: 123,
@@ -88,7 +91,7 @@ function getRandomToy() {
 }
 
 function getDefaultFilter() {
-	return { txt: '', maxPrice: '', isStock: null }
+	return { txt: '', maxPrice: '', isStock: null, labels: [] }
 }
 
 function _createToys() {

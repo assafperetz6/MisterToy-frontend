@@ -9,8 +9,6 @@ import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 
-
-
 export function ToyIndex() {
 
     const dispatch = useDispatch()
