@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import { toyService } from '../services/toy.service.local.js'
+import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { loadToys, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
 import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
@@ -61,10 +61,10 @@ export function ToyIndex() {
             })
     }
 
-    function addToToyt(toy) {
-        console.log(`Adding ${toy.vendor} to Toyt`)
+    function addToCart(toy) {
+        console.log(`Adding ${toy.vendor} to Cart`)
         dispatch({ type: ADD_TOY_TO_CART, toy })
-        showSuccessMsg('Added to Toyt')
+        showSuccessMsg('Added to Cart')
     }
 
     return (
@@ -78,7 +78,7 @@ export function ToyIndex() {
                         toys={toys}
                         onRemoveToy={onRemoveToy}
                         onEditToy={onEditToy}
-                        addToToyt={addToToyt}
+                        addToCart={addToCart}
                     />
                     : <div>Loading...</div>
                 }

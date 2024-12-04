@@ -17,7 +17,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 	]
     onSetFilter = useRef(utilService.debounce(onSetFilter, 300))
 
-    useEffect(() => {                
+    useEffect(() => {
         onSetFilter.current(filterByToEdit)        
     }, [filterByToEdit])
     

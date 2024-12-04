@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { toyService } from "../services/toy.service.local.js"
+import { toyService } from "../services/toy.service.js"
 import { Link, useParams } from "react-router-dom"
 
 export function ToyDetails() {
@@ -25,10 +25,16 @@ export function ToyDetails() {
             <h5>Price: ${toy.price}</h5>
             <img src={`https://robohash.org/${toy._id}`} alt="" />
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
-            <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp;
-            <Link to={`/toy`}>Back</Link>
+            <button>
+                <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp;
+            </button>
+            <button>
+                <Link to={`/toy`}>Back</Link>
+            </button>
             <p>
-                <Link to="/toy/nJ5L4">Next Toy</Link>
+                <button>
+                    <Link to="/toy/nJ5L4">Next Toy</Link>
+                </button>
             </p>
         </section>
     )
