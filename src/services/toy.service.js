@@ -3,7 +3,7 @@ import { utilService } from './util.service.js'
 
 const BASE_URL = 'toy/'
 
-const labelOptions = [
+export const labels = [
 	'On wheels',
 	'Box game',
 	'Art',
@@ -21,7 +21,8 @@ export const toyService = {
     remove,
     getEmptyToy,
     getDefaultFilter,
-    getRandomToy
+    getRandomToy,
+    getStats
 }
 
 function query(filterBy = {}) {
@@ -59,8 +60,8 @@ function getRandomToy() {
 		name: `toy-${utilService.makeId(3)}`,
 		price: 123,
 		labels: [
-			labelOptions[utilService.getRandomIntInclusive(0, 7)],
-			labelOptions[utilService.getRandomIntInclusive(0, 7)],
+			labels[utilService.getRandomIntInclusive(0, 7)],
+			labels[utilService.getRandomIntInclusive(0, 7)],
 		],
 		createdAt: Date.now(),
 		inStock: utilService.getRandomBoolean(),
@@ -71,4 +72,8 @@ function getRandomToy() {
 
 function getDefaultFilter() {
     return { txt: '', maxPrice: '', isStock: null, labels: [] }
+}
+
+function getStats() {
+    return [1, 2, 3, 4, 5, 20]
 }

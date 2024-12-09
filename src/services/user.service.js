@@ -13,44 +13,43 @@ export const userService = {
     getEmptyCredentials
 }
 
-function login({ username, password }) {
+async function login({ username, password }) {
 
-    return httpService.post(BASE_URL + 'login', { username, password })
-        .then(user => {
-            console.log('user FETCH:', user)
-            if (user) return _setLoggedinUser(user)
-            else return Promise.reject('Invalid login')
-        })
+    const user = await httpService.post(BASE_URL + 'login', { username, password })
+    console.log('user FETCH:', user)
+
+    if (user) return _setLoggedinUser(user)
+    else return 'Invalid login'
 }
 
-function signup({ username, password, fullname }) {
+async function signup({ username, password, fullname }) {
     const user = { username, password, fullname, score: 10000 }
-    return httpService.post(BASE_URL + 'signup', user)
-        .then(user => {
-            if (user) return _setLoggedinUser(user)
-            else return Promise.reject('Invalid signup')
-        })
+
+    const userToSignup = await httpService.post(BASE_URL + 'signup', user)
+    
+    if (userToSignup) return _setLoggedinUser(userToSignup)
+    else return Promise.reject('Invalid signup')
+
 }
 
-function logout() {
-    return httpService.post(BASE_URL + 'logout')
-        .then(() => {
-            sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
-        })
+async function logout() {
+    await httpService.post(BASE_URL + 'logout')
+    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
 }
 
-function updateScore(diff) {
-    if (getLoggedinUser().score + diff < 0) return Promise.reject('No credit')
-    return httpService.put('/api/user', { diff })
-        .then(user => {
-            console.log('updateScore user:', user)
-            _setLoggedinUser(user)
-            return user.score
-        })
+async function updateScore(diff) {
+    if (getLoggedinUser().score + diff < 0) return 'No credit'
+
+    const user = await httpService.put('/api/user', { diff })
+
+    console.log('updateScore user:', user)
+    _setLoggedinUser(user)
+    return user.score
 }
 
-function getById(userId) {
-    return axios.get('/api/user/' + userId).then(res => res.data)
+async function getById(userId) {
+    const { data } = await axios.get('/api/user/' + userId)
+    return data
 }
 
 function getLoggedinUser() {

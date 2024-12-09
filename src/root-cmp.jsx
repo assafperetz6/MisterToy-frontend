@@ -5,6 +5,7 @@ import { AppHeader } from './cmps/AppHeader.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 
 import { HomePage } from './pages/HomePage.jsx'
+// import { Dashboard } from './pages/Dashboard.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
@@ -19,6 +20,7 @@ function App() {
                     <main className='main-layout'>
                         <Routes>
                             <Route element={<HomePage />} path="/" />
+                            {/* <Route element={<Dashboard />} path="/dashboard" /> */}
                             <Route element={<ToyIndex />} path="/toy" />
                             <Route element={<ToyDetails />} path="/toy/:toyId" />
                             <Route element={<ToyEdit />} path="/toy/edit/:toyId" />

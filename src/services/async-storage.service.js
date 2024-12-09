@@ -11,41 +11,50 @@ function query(entityType, delay = 500) {
     return new Promise(resolve => setTimeout(() => resolve(entities), delay))
 }
 
-function get(entityType, entityId) {
-    return query(entityType).then(entities => {
+async function get(entityType, entityId) {
+    try {
+        const entities = await query(entityType)
         const entity = entities.find(entity => entity._id === entityId)
-        if (!entity) throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
         return entity
-    })
+    } catch (err) {
+        throw new Error(`Get failed, cannot find entity with id: ${entityId} in: ${entityType}`)
+    }
+
 }
 
-function post(entityType, newEntity) {
+async function post(entityType, newEntity) {
     newEntity = {...newEntity}
     newEntity._id = _makeId()
-    return query(entityType).then(entities => {
+
+    try {
+        const entities = await query(entityType)
         entities.push(newEntity)
         _save(entityType, entities)
+
         return newEntity
-    })
+    } catch (err) {
+        throw new Error(`Failed to update entity with id: ${entityId} in: ${entityType}`)
+    }
 }
 
-function put(entityType, updatedEntity) {
-    return query(entityType).then(entities => {
-        const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
-        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${entityId} in: ${entityType}`)
-        entities.splice(idx, 1, updatedEntity)
-        _save(entityType, entities)
-        return updatedEntity
-    })
+async function put(entityType, updatedEntity) {
+    const entities = await query(entityType)
+    const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
+
+    if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${entityId} in: ${entityType}`)
+
+    entities.splice(idx, 1, updatedEntity)
+    _save(entityType, entities)
+    return updatedEntity
 }
 
-function remove(entityType, entityId) {
-    return query(entityType).then(entities => {
-        const idx = entities.findIndex(entity => entity._id === entityId)
-        if (idx < 0) throw new Error(`Remove failed, cannot find entity with id: ${entityId} in: ${entityType}`)
+async function remove(entityType, entityId) {
+    const entities = await query(entityType)
+    const idx = entities.findIndex(entity => entity._id === entityId)
+
+    if (idx < 0) throw new Error(`Remove failed, cannot find entity with id: ${entityId} in: ${entityType}`)
         entities.splice(idx, 1)
         _save(entityType, entities)
-    })
 }
 
 // Private functions

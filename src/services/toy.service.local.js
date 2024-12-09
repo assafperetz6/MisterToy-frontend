@@ -26,26 +26,27 @@ export const toyService = {
 	getDefaultFilter,
 }
 
-function query(filterBy = {}) {
+async function query(filterBy = {}) {
 	console.log(filterBy)
-	return storageService.query(STORAGE_KEY).then((toys) => {
-		if (!filterBy.txt) filterBy.txt = ''
-		if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
-        
-		if (filterBy.isStock) {
-            toys = toys.filter((toy) => toy.inStock === JSON.parse(filterBy.isStock))
-		}
-        
-        if (filterBy.labels && filterBy.labels.length > 0) {
-            toys = toys.filter(toy => toy.labels.some((label) => filterBy.labels.includes(label)))
-        }
-		const regExp = new RegExp(filterBy.txt, 'i')
-		return toys.filter((toy) => {
-			return (
-				regExp.test(toy.name) &&
-				toy.price <= filterBy.maxPrice
-			)
-		})
+
+	const toys = await storageService.query(STORAGE_KEY)
+	if (!filterBy.txt) filterBy.txt = ''
+	if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
+	
+	if (filterBy.isStock) {
+		toys = toys.filter((toy) => toy.inStock === JSON.parse(filterBy.isStock))
+	}
+	
+	if (filterBy.labels && filterBy.labels.length > 0) {
+		toys = toys.filter(toy => toy.labels.some((label) => filterBy.labels.includes(label)))
+	}
+	const regExp = new RegExp(filterBy.txt, 'i')
+
+	return toys.filter((toy) => {
+		return (
+			regExp.test(toy.name) &&
+			toy.price <= filterBy.maxPrice
+		)
 	})
 }
 

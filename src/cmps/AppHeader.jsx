@@ -13,14 +13,13 @@ export function AppHeader() {
     const dispatch = useDispatch()
     const user = useSelector(storeState => storeState.userModule.loggedInUser)
 
-    function onLogout() {
-        logout()
-            .then(() => {
-                showSuccessMsg('logout successfully')
-            })
-            .catch((err) => {
-                showErrorMsg('OOPs try again')
-            })
+    async function onLogout() {
+        try {
+            await logout()
+            showSuccessMsg('logout successfully')
+        } catch (err) {
+            showErrorMsg('OOPs try again')
+        }
     }
 
     function onToggleCart(ev) {
@@ -36,6 +35,7 @@ export function AppHeader() {
                     <NavLink to="/" >Home</NavLink>
                     <NavLink to="/about" >About</NavLink>
                     <NavLink to="/toy" >Toys</NavLink>
+                    <NavLink to="/dashboard" >Dashboard</NavLink>
                     <a onClick={onToggleCart} href="#">🛒 Cart</a>
 
                 </nav>

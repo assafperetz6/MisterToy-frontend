@@ -13,14 +13,14 @@ export function ToyEdit() {
 		if (toyId) loadToy()
 	}, [])
 
-	function loadToy() {
-		toyService
-			.getById(toyId)
-			.then((toy) => setToyToEdit(toy))
-			.catch((err) => {
-				console.log('Had issues in toy edit', err)
-				navigate('/toy')
-			})
+	async function loadToy() {
+		try {
+			const toy = await toyService.getById(toyId)
+			setToyToEdit(toy)
+		} catch (err) {
+			console.log('Had issues in toy edit', err)
+			navigate('/toy')	
+		}
 	}
 
 	function handleChange({ target }) {
@@ -29,32 +29,32 @@ export function ToyEdit() {
 		setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
 	}
 
-	function onDeleteToy(ev) {
+	async function onDeleteToy(ev) {
         ev.preventDefault()
 
-		toyService.remove(toyId)
-			.then(() => {
-				showSuccessMsg('Toy removed!')
-				navigate('/toy')
-			})
-			.catch((err) => {
-				console.log('Had issues removing toy', err)
-				showErrorMsg('Had issues removing toy')
-			})
+		try {
+			await toyService.remove(toyId)
+			showSuccessMsg('Toy removed!')
+			navigate('/toy')
+		} catch (err) {
+			console.log('Had issues removing toy', err)
+			showErrorMsg('Had issues removing toy')
+		}
 	}
 
-	function onSaveToy(ev) {
+	async function onSaveToy(ev) {
 		ev.preventDefault()
 		if (!toyToEdit.price) toyToEdit.price = 1000
-		saveToy(toyToEdit)
-			.then(() => {
-				showSuccessMsg('Toy Saved!')
-				navigate('/toy')
-			})
-			.catch((err) => {
-				console.log('Had issues in toy details', err)
-				showErrorMsg('Had issues in toy details')
-			})
+
+		debugger
+		try {
+			await saveToy(toyToEdit)
+			showSuccessMsg('Toy Saved!')
+			navigate('/toy')
+		} catch (err) {
+			console.log('Had issues in toy details', err)
+			showErrorMsg('Had issues in toy details')
+		}
 	}
 
 	return (
