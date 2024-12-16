@@ -38,7 +38,7 @@ function remove(toyId) {
     return httpService.delete(BASE_URL + toyId)
 }
 
-function save(toy) {    
+function save(toy) {        
     if (toy._id) {
         return httpService.put(BASE_URL + toy._id, toy)
     } else {
@@ -71,7 +71,7 @@ function getRandomToy() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', maxPrice: '', isStock: null, labels: [] }
+    return { txt: '', maxPrice: '', inStock: null, labels: [] }
 }
 
 function getStats() {

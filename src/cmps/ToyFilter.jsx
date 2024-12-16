@@ -18,7 +18,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     onSetFilter = useRef(utilService.debounce(onSetFilter, 300))
 
     useEffect(() => {
-        onSetFilter.current(filterByToEdit)        
+        onSetFilter.current(filterByToEdit)            
     }, [filterByToEdit])
     
 
@@ -26,14 +26,12 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         let { value, name: field, type } = target
         value = type === 'number' ? +value : value
 
-        
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+        
     }
 
     function toggleLabel({ target }) {
         const { checked, name: label } = target
-        
-        console.log(checked)
         
         if (checked) setFilterByToEdit((prevFilter) => {
             if (prevFilter.labels.includes(label)) return prevFilter
@@ -42,9 +40,19 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         else setFilterByToEdit(prevFilter => ({ ...prevFilter, labels: prevFilter.labels.filter(currLabel => currLabel !== label) }))
     }
 
+    function clearFilter() {
+        setFilterByToEdit({
+            txt: '',
+            maxPrice: '',
+            inStock: '',
+            labels: []
+        })
+    }
+
     return (
         <section className="toy-filter full main-layout">
             <h2>Toys Filter</h2>
+            <button className="btn" onClick={clearFilter}>Clear</button>
             <form >
                 <label htmlFor="title">Title:</label>
                 <input type="text"
@@ -65,10 +73,10 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                 />
 
 
-                <select name="isStock" id="isStock" onChange={handleChange}>
-                    <option value='true'>In stock</option>
-                    <option value='false'>Not in stock</option>
-                    <option value=''>Both</option>
+                <select name="inStock" id="inStock" onChange={handleChange} value={filterByToEdit.inStock} >
+                    <option value=''>All</option>
+                    <option value={true}>In stock</option>
+                    <option value={false}>Not in stock</option>
                 </select>
 
                 <FilterByLabel labels={labels} selected={filterByToEdit.labels} toggleLabel={toggleLabel}/>

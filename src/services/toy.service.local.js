@@ -33,8 +33,8 @@ async function query(filterBy = {}) {
 	if (!filterBy.txt) filterBy.txt = ''
 	if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
 	
-	if (filterBy.isStock) {
-		toys = toys.filter((toy) => toy.inStock === JSON.parse(filterBy.isStock))
+	if (filterBy.inStock) {
+		toys = toys.filter((toy) => toy.inStock === JSON.parse(filterBy.inStock))
 	}
 	
 	if (filterBy.labels && filterBy.labels.length > 0) {
@@ -92,7 +92,7 @@ function getRandomToy() {
 }
 
 function getDefaultFilter() {
-	return { txt: '', maxPrice: '', isStock: null, labels: [] }
+	return { txt: '', maxPrice: '', inStock: null, labels: [] }
 }
 
 function _createToys() {

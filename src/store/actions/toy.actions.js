@@ -4,7 +4,7 @@ import { ADD_TOY, TOY_UNDO, REMOVE_TOY, SET_TOYS, SET_FILTER_BY, SET_IS_LOADING,
 import { store } from '../store.js'
 
 export async function loadToys() {
-	const filterBy = store.getState().toyModule.filterBy
+	const filterBy = store.getState().toyModule.filterBy	
 	store.dispatch({ type: SET_IS_LOADING, isLoading: true })
 	
 	try {
@@ -41,9 +41,7 @@ export async function removeToyOptimistic(toyId) {
 	}
 }
 
-export async function saveToy(toy) {
-	console.log(toy._id)
-	
+export async function saveToy(toy) {	
 	const type = toy._id ? UPDATE_TOY : ADD_TOY
 	
 	try {

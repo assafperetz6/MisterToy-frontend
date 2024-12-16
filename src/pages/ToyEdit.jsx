@@ -46,7 +46,6 @@ export function ToyEdit() {
 		ev.preventDefault()
 		if (!toyToEdit.price) toyToEdit.price = 1000
 
-		debugger
 		try {
 			await saveToy(toyToEdit)
 			showSuccessMsg('Toy Saved!')
@@ -62,11 +61,11 @@ export function ToyEdit() {
 			<h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
 
 			<form onSubmit={onSaveToy}>
-				<label htmlFor="vendor">name : </label>
+				<label htmlFor="name">name : </label>
 				<input
 					type="text"
-					name="vendor"
-					id="vendor"
+					name="name"
+					id="name"
 					placeholder="Enter name..."
 					value={toyToEdit.name}
 					onChange={handleChange}
